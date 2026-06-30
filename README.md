@@ -38,7 +38,7 @@ thumbnail-ai/
 │   │   │   ├── Dashboard.jsx # Generation workspace with local toasts
 │   │   │   ├── History.jsx   # Searchable user gallery log
 │   │   │   ├── Profile.jsx   # Real-time statistics logs
-│   │   │   └── NotFound.jsx  # Dark 404 page
+│   │   │   └── NotFound.jsx  # 404 page
 │   │   ├── utils/
 │   │   │   └── api.js        # Axios instance with request headers interceptors
 │   │   ├── App.jsx           # Client side routes config
@@ -49,7 +49,7 @@ thumbnail-ai/
 │   └── package.json          # React packages & scripts
 │
 ├── package.json              # Root project manager script
-└── README.md                 # Complete documentation guide (This file)
+└── README.md                 # Project documentation (This file)
 ```
 
 ---
@@ -60,14 +60,12 @@ Create a `.env` file inside the `backend/` directory and configure the variables
 
 ```env
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/thumbnail_ai
+MONGO_URI=your_mongodb_atlas_connection_string
 JWT_SECRET=your_secret_jwt_key_here
-HUGGING_FACE_TOKEN=your_huggingface_write_token_here
 ```
 
-- **MONGO_URI:** The connection URI to your MongoDB database. Defaults to your local MongoDB server.
-- **JWT_SECRET:** Any unique key used to sign and encrypt JSON Web Tokens.
-- **HUGGING_FACE_TOKEN:** A Hugging Face token (Write permission recommended) used to call Stable Diffusion models as a fallback mechanism.
+- **MONGO_URI:** The connection URI to your MongoDB database (Local or MongoDB Atlas).
+- **JWT_SECRET:** Any unique key used to sign and encrypt JSON Web Tokens for user sessions.
 
 ---
 
@@ -75,14 +73,14 @@ HUGGING_FACE_TOKEN=your_huggingface_write_token_here
 
 ### Prerequisites
 1. **Node.js** (v18 or higher recommended)
-2. **MongoDB Community Server** installed and running locally.
+2. **MongoDB** installed locally or an Atlas cloud cluster.
 
 ### Setup Steps
-1. Clone the project or open the folder in your terminal:
+1. Clone the project or open the folder:
    ```bash
    cd thumbnail-ai
    ```
-2. Run the root install script to install dependencies for the root, backend, and frontend concurrently:
+2. Install all dependencies concurrently:
    ```bash
    npm run install-all
    ```
@@ -92,97 +90,52 @@ HUGGING_FACE_TOKEN=your_huggingface_write_token_here
 
 ## 🚀 Running the Project Locally
 
-### 1. Start MongoDB Connection
-Make sure your local MongoDB service is running. On Windows, you can start it via Services or command line:
-```powershell
-net start MongoDB
-```
-
-### 2. Launch the Development Server
 From the root project directory, boot the backend and frontend concurrently:
 ```bash
 npm run dev
 ```
 - **React Frontend:** Serves on [http://localhost:3000/](http://localhost:3000/) (proxies API traffic automatically)
-- **Node Backend:** Runs on [http://localhost:5000/](http://localhost:5000/) with Nodemon reload support.
-
----
-
-## 📦 Git Workflow Commands
-
-To push this codebase to your personal GitHub repository:
-
-1. Initialize git in the root folder:
-   ```bash
-   git init
-   ```
-2. Create a `.gitignore` in the root (ignoring `node_modules`, `.env`, and production builds):
-   ```text
-   node_modules/
-   backend/.env
-   frontend/dist/
-   backend/uploads/*
-   !backend/uploads/.gitkeep
-   ```
-3. Stage and commit files:
-   ```bash
-   git add .
-   git commit -m "feat: complete ThumbnailAI application build"
-   ```
-4. Connect to your GitHub repository and upload:
-   ```bash
-   git branch -M main
-   git remote add origin https://github.com/your-username/your-repo-name.git
-   git push -u origin main
-   ```
+- **Node Backend:** Runs on [http://localhost:5000/](http://localhost:5000/)
 
 ---
 
 ## ☁️ Deployment Guide (Render + Vercel + MongoDB Atlas)
 
-Follow these steps to deploy this application to the cloud for free:
-
 ### 1. Database Cloud Setup (MongoDB Atlas)
-1. Sign up on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
-2. Create a Free Shared Cluster.
-3. Under **Network Access**, allow access from anywhere (`0.0.0.0/0`) or select IP permissions.
-4. Under **Database Access**, create a user credentials set (username/password).
-5. Copy the connection string (looks like `mongodb+srv://<username>:<password>@cluster0.xxx.mongodb.net/...`).
+1. Sign up on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create a Free Cluster.
+2. In **Network Access**, add `0.0.0.0/0` (Allow access from anywhere).
+3. In **Database Access**, create a user credentials set (username/password).
+4. Copy the driver connection string.
 
 ### 2. Backend Hosting (Render)
-1. Register on [Render.com](https://render.com/).
-2. Click **New +** > **Web Service**.
-3. Link your GitHub repository.
-4. Set the following settings:
-   - **Environment:** `Node`
-   - **Build Command:** `npm install --prefix backend`
-   - **Start Command:** `npm start --prefix backend`
-5. Go to the **Environment** tab on Render and add your variables:
-   - `MONGO_URI` (Paste your MongoDB Atlas string)
+1. Register on [Render.com](https://render.com/) and create a **New Web Service**.
+2. Connect your GitHub repository.
+3. Configure the following parameters:
+   - **Root Directory:** `backend`
+   - **Build Command:** `npm install`
+   - **Start Command:** `node server.js`
+4. Under **Advanced Settings / Environment Variables**, add your keys:
+   - `MONGO_URI` (Paste your MongoDB Atlas connection string)
    - `JWT_SECRET` (A strong custom key)
-   - `HUGGING_FACE_TOKEN` (Your API token)
-   - `PORT` = `5000`
-6. Copy the deployed backend URL (e.g. `https://thumbnail-api.onrender.com`).
+5. Copy the deployed backend URL (e.g. `https://thumbnail-ai-backend.onrender.com`).
 
 ### 3. Frontend Hosting (Vercel)
-1. Before deploying, modify [api.js](file:///C:/Users/ganesha/Downloads/thumbnail-ai/frontend/src/utils/api.js) on your frontend. Change your Axios baseURL from `/api` to your absolute Render backend URL (`https://your-api.onrender.com/api`).
-2. Log in to [Vercel](https://vercel.com/) and click **Add New Project**.
-3. Import your GitHub repository.
-4. Set the **Root Directory** as `frontend/`.
-5. Set the **Framework Preset** as `Vite`.
-6. Click **Deploy**. Vercel will host your client application and provide a production domain.
+1. Log in to [Vercel](https://vercel.com/) and import your GitHub repository.
+2. Set the **Root Directory** as `frontend`.
+3. Under **Environment Variables**, add:
+   - **Key:** `VITE_API_URL`
+   - **Value:** *(Paste your Render backend URL)*
+4. Click **Deploy**. Vercel will host your client application and provide a production domain.
 
 ---
 
-## 🎯 Final Local Verification Checklist
+## 🎯 Verification Checklist
 
-Confirm that these features are operational before demo day:
-- [ ] **Auth Check:** Create a new account. Verify the form validation triggers borders red on weak passwords/bad emails. Confirm a Toast alert greets you on redirect.
-- [ ] **Route Protection:** Sign out, then try typing `http://localhost:3000/dashboard` in the address bar. Verify it redirects you to the login screen.
-- [ ] **AI Fallback Check:** Generate a thumbnail. Inspect your `backend/uploads/` directory; verify that a JPEG was downloaded to your server disk.
-- [ ] **Download Utility:** Click download on the dashboard. Verify that it triggers a local browser save.
-- [ ] **Clipboard Copier:** Click copy optimized prompt. Paste in notepad to verify text matches the AI prompt.
-- [ ] **Search Gallery:** Create several thumbnails, go to **History**, and type prompt keywords. Confirm list filters cards instantly.
-- [ ] **Unlink / Delete Sync:** Delete a thumbnail. Verify it disappears from history and its file is deleted from the `backend/uploads/` server folder.
-- [ ] **Profile Check:** View **Profile**. Check that your registration date and total count are fetched from MongoDB.
-- [ ] **404 Check:** Type `http://localhost:3000/invalid-url` and verify the custom NotFound page is rendered.
+- [x] **Auth Validation:** Inputs trigger border colors red on weak passwords or invalid emails, and toast alerts greet on redirects.
+- [x] **Route Protection:** Direct access to `/dashboard` redirects to `/login` if unauthenticated.
+- [x] **AI Generation:** Describe a scene, generate a YouTube thumbnail in 16:9 ratio, and view logs immediately.
+- [x] **Download Utility:** Download generated graphics locally to your PC.
+- [x] **Clipboard Copier:** Copy optimized prompts to your clipboard for external use.
+- [x] **Search Gallery:** Real-time keyword filter searching through your history gallery.
+- [x] **Account Statistics:** Profile page displays registration date and total thumbnail stats from MongoDB.
+- [x] **404 Handling:** Friendly customized 404 page for unmatched routes.
