@@ -6,7 +6,7 @@ It implements a reliable **high-availability fallback AI pipeline** (Pollination
 
 ---
 
-## 📂 Project Folder Structure
+## Project Folder Structure
 
 ```text
 thumbnail-ai/
@@ -54,7 +54,7 @@ thumbnail-ai/
 
 ---
 
-## ⚙️ Environment Variables Setup
+## Environment Variables Setup
 
 Create a `.env` file inside the `backend/` directory and configure the variables as shown below:
 
@@ -69,7 +69,7 @@ JWT_SECRET=your_secret_jwt_key_here
 
 ---
 
-## 🛠️ Installation Steps
+## Installation Steps
 
 ### Prerequisites
 1. **Node.js** (v18 or higher recommended)
@@ -88,7 +88,7 @@ JWT_SECRET=your_secret_jwt_key_here
 
 ---
 
-## 🚀 Running the Project Locally
+## Running the Project Locally
 
 From the root project directory, boot the backend and frontend concurrently:
 ```bash
@@ -99,7 +99,7 @@ npm run dev
 
 ---
 
-## ☁️ Deployment Guide (Render + Vercel + MongoDB Atlas)
+## Deployment Guide (Render + Vercel + MongoDB Atlas)
 
 ### 1. Database Cloud Setup (MongoDB Atlas)
 1. Sign up on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create a Free Cluster.
@@ -129,7 +129,7 @@ npm run dev
 
 ---
 
-## 🎯 Verification Checklist
+##  Verification Checklist
 
 - [x] **Auth Validation:** Inputs trigger border colors red on weak passwords or invalid emails, and toast alerts greet on redirects.
 - [x] **Route Protection:** Direct access to `/dashboard` redirects to `/login` if unauthenticated.
