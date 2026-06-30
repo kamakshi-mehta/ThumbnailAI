@@ -56,10 +56,6 @@ const Landing = () => {
         {/* Glow decoration */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-orange-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 border border-orange-200 text-orange-600 mb-6 tracking-wide">
-          AI-POWERED CREATION FOR YOUTUBERS
-        </span>
-
         <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight max-w-4xl text-slate-900">
           Generate Stunning YouTube Thumbnails in{' '}
           <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
