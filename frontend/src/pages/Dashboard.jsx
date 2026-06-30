@@ -243,7 +243,7 @@ const Dashboard = () => {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. I Built an AI App in 24 Hours!"
+                placeholder="enter your video title"
                 className="w-full bg-white border border-orange-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors text-sm"
               />
             </div>
@@ -254,7 +254,7 @@ const Dashboard = () => {
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="e.g. Coding capstone tutorial showing MERN fallback routes..."
+                placeholder="give description of video"
                 className="w-full bg-white border border-orange-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors text-sm"
               />
             </div>
@@ -265,7 +265,7 @@ const Dashboard = () => {
                 rows="3"
                 value={promptText}
                 onChange={(e) => setPromptText(e.target.value)}
-                placeholder="Describe what visual elements should be in the thumbnail..."
+                placeholder="write whats in your mind"
                 className="w-full bg-white border border-orange-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors text-sm resize-none"
               />
             </div>
