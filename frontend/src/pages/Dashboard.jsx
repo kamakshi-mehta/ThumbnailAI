@@ -209,9 +209,6 @@ const Dashboard = () => {
           <h1 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-orange-50 to-amber-500 bg-clip-text text-transparent">
             Welcome Back, {user?.username || 'Creator'}
           </h1>
-          <p className="text-slate-500 text-xs md:text-sm mt-1 font-medium">
-            MERN Capstone - AI YouTube Thumbnail Generator workspace.
-          </p>
         </div>
         <div className="flex items-center gap-3 bg-white border border-orange-100 px-4 py-2.5 rounded-xl">
           <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Total Thumbnails</span>
