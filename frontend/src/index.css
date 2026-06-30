@@ -10,19 +10,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0B0F19; /* premium dark background */
-  color: #F3F4F6;
+  background-color: #ffffff; /* Clean White Base */
+  background-image: radial-gradient(rgba(249, 115, 22, 0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  background-attachment: fixed;
+  color: #0f172a;
 }
 
-/* Glassmorphism utility */
+/* Glassmorphism utility for light-theme card elements */
 .glass {
-  background: rgba(22, 31, 48, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  color: #0f172a;
 }
 
 /* Custom glow effect */
 .glow-primary {
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.15);
 }

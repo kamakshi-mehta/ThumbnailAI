@@ -40,45 +40,45 @@ const Profile = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       {/* Profile Card Container */}
-      <div className="glass rounded-2xl overflow-hidden border border-dark-border shadow-2xl relative">
+      <div className="glass rounded-2xl overflow-hidden border border-orange-100 shadow-lg relative">
         {/* Color bar decoration */}
-        <div className="h-32 bg-gradient-to-r from-primary-600 to-primary-900 relative">
-          <div className="absolute -bottom-12 left-8 w-24 h-24 rounded-2xl bg-dark-bg border-4 border-dark-border flex items-center justify-center text-4xl font-extrabold text-primary-400 select-none shadow-md">
+        <div className="h-32 bg-gradient-to-r from-orange-500 to-amber-600 relative">
+          <div className="absolute -bottom-12 left-8 w-24 h-24 rounded-2xl bg-white border-4 border-orange-100 flex items-center justify-center text-4xl font-extrabold text-orange-500 select-none shadow-md">
             {profile?.username ? profile.username.substring(0, 2).toUpperCase() : 'AI'}
           </div>
         </div>
 
         {/* Profile Content */}
         <div className="px-8 pt-16 pb-8">
-          <h2 className="text-2xl font-black text-white">{profile?.username || 'Username'}</h2>
-          <p className="text-gray-400 text-sm">Creator Account Status</p>
+          <h2 className="text-2xl font-black text-slate-800">{profile?.username || 'Username'}</h2>
+          <p className="text-slate-500 text-sm font-medium">Creator Account Status</p>
 
           {error && (
-            <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg text-sm my-6">
+            <div className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm my-6">
               {error}
             </div>
           )}
 
           {loading ? (
-            <div className="py-12 text-center text-gray-500 text-sm">
-              <div className="w-8 h-8 border-3 border-primary-500 border-t-transparent rounded-full animate-spin mb-3 mx-auto"></div>
+            <div className="py-12 text-center text-slate-500 text-sm">
+              <div className="w-8 h-8 border-3 border-orange-500 border-t-transparent rounded-full animate-spin mb-3 mx-auto"></div>
               Loading account statistics...
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 gap-8 mt-8 border-t border-dark-border pt-8">
+            <div className="grid md:grid-cols-2 gap-8 mt-8 border-t border-orange-100 pt-8">
               
               {/* Account Details Block */}
               <div className="space-y-4">
-                <h3 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-2">Account Details</h3>
+                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-2">Account Details</h3>
                 
                 <div>
-                  <span className="text-xs text-gray-500 block">Registered Email</span>
-                  <span className="text-gray-200 text-sm font-medium">{profile?.email || 'N/A'}</span>
+                  <span className="text-xs text-slate-400 block font-semibold">Registered Email</span>
+                  <span className="text-slate-650 text-sm font-medium">{profile?.email || 'N/A'}</span>
                 </div>
 
                 <div>
-                  <span className="text-xs text-gray-500 block">Date Joined</span>
-                  <span className="text-gray-200 text-sm font-medium">
+                  <span className="text-xs text-slate-400 block font-semibold">Date Joined</span>
+                  <span className="text-slate-650 text-sm font-medium">
                     {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString(undefined, {
                       year: 'numeric',
                       month: 'long',
@@ -88,27 +88,27 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <span className="text-xs text-gray-500 block">Unique User ID</span>
-                  <span className="text-gray-400 font-mono text-[10px] break-all">{profile?._id || 'N/A'}</span>
+                  <span className="text-xs text-slate-400 block font-semibold">Unique User ID</span>
+                  <span className="text-slate-550 font-mono text-[10px] break-all">{profile?._id || 'N/A'}</span>
                 </div>
               </div>
 
               {/* Creator Stats Block */}
-              <div className="bg-dark-bg/40 border border-dark-border rounded-xl p-6 flex flex-col justify-between">
+              <div className="bg-orange-50/10 border border-orange-100 rounded-xl p-6 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-4">Creator Performance</h3>
+                  <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4">Creator Performance</h3>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-black text-primary-400 tracking-tight">{genCount}</span>
-                    <span className="text-xs text-gray-400 font-medium">Thumbnails Generated</span>
+                    <span className="text-5xl font-black text-orange-500 tracking-tight">{genCount}</span>
+                    <span className="text-xs text-slate-500 font-semibold">Thumbnails Generated</span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-4 leading-relaxed">
-                    You have generated a total of {genCount} AI graphics. All files are hosted on your local project directory.
+                  <p className="text-xs text-slate-500 mt-4 leading-relaxed">
+                    You have generated a total of {genCount} AI graphics. All files are hosted on your project directory.
                   </p>
                 </div>
                 
-                <div className="mt-6 pt-4 border-t border-dark-border flex justify-between items-center text-xs text-emerald-400 font-semibold bg-emerald-500/5 px-3.5 py-2 rounded-lg border border-emerald-500/10">
-                  <span>● Capstone Server Online</span>
-                  <span className="text-gray-500 font-mono">127.0.0.1</span>
+                <div className="mt-6 pt-4 border-t border-orange-100 flex justify-between items-center text-xs text-emerald-600 font-semibold bg-emerald-500/5 px-3.5 py-2 rounded-lg border border-emerald-500/10">
+                  <span>● Backend Server Active</span>
+                  <span className="text-slate-500 font-mono">127.0.0.1</span>
                 </div>
               </div>
 

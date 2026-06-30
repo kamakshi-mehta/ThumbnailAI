@@ -111,115 +111,115 @@ const Register = () => {
       {toast.message && (
         <div className={`fixed top-24 right-6 px-5 py-3 rounded-xl shadow-2xl border transition-all duration-300 z-50 text-sm flex items-center gap-2 ${
           toast.type === 'success' 
-            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
-            : 'bg-red-500/10 border-red-500/30 text-red-400'
+            ? 'bg-emerald-100 border-emerald-200 text-emerald-700' 
+            : 'bg-red-100 border-red-200 text-red-700'
         }`}>
           <span>{toast.type === 'success' ? '✓' : '⚠'}</span>
           <span>{toast.message}</span>
         </div>
       )}
 
-      <div className="w-full max-w-md p-8 rounded-2xl glass glow-primary border border-dark-border">
-        <h2 className="text-3xl font-extrabold text-center mb-2 bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
+      <div className="w-full max-w-md p-8 rounded-2xl glass glow-primary border border-orange-100">
+        <h2 className="text-3xl font-extrabold text-center mb-2 bg-gradient-to-r from-orange-50 to-amber-500 bg-clip-text text-transparent">
           Create an Account
         </h2>
-        <p className="text-gray-400 text-center mb-8 text-xs">
+        <p className="text-slate-500 text-center mb-8 text-xs font-medium">
           Join ThumbnailAI to generate YouTube thumbnails.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Username Input block */}
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Username</label>
+            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Username</label>
             <input
               type="text"
               name="username"
               value={username}
               onChange={handleChange}
               placeholder="Choose username"
-              className={`w-full bg-[#0D1424] border rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-1 text-sm transition-all ${
+              className={`w-full bg-white border rounded-lg px-4 py-2.5 text-slate-850 focus:outline-none focus:ring-1 text-sm transition-all ${
                 errors.username 
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-                  : 'border-dark-border focus:border-primary-500 focus:ring-primary-500'
+                  : 'border-orange-200 focus:border-orange-500 focus:ring-orange-500'
               }`}
             />
             {errors.username && (
-              <p className="text-red-400 text-xs mt-1.5">{errors.username}</p>
+              <p className="text-red-500 text-xs mt-1.5">{errors.username}</p>
             )}
           </div>
 
           {/* Email Input block */}
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Email Address</label>
+            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Email Address</label>
             <input
               type="text"
               name="email"
               value={email}
               onChange={handleChange}
               placeholder="Enter your email ID"
-              className={`w-full bg-[#0D1424] border rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-1 text-sm transition-all ${
+              className={`w-full bg-white border rounded-lg px-4 py-2.5 text-slate-850 focus:outline-none focus:ring-1 text-sm transition-all ${
                 errors.email 
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-                  : 'border-dark-border focus:border-primary-500 focus:ring-primary-500'
+                  : 'border-orange-200 focus:border-orange-500 focus:ring-orange-500'
               }`}
             />
             {errors.email && (
-              <p className="text-red-400 text-xs mt-1.5">{errors.email}</p>
+              <p className="text-red-500 text-xs mt-1.5">{errors.email}</p>
             )}
           </div>
 
           {/* Password Input block */}
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Password</label>
+            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Password</label>
             <input
               type="password"
               name="password"
               value={password}
               onChange={handleChange}
               placeholder="Enter your password"
-              className={`w-full bg-[#0D1424] border rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-1 text-sm transition-all ${
+              className={`w-full bg-white border rounded-lg px-4 py-2.5 text-slate-850 focus:outline-none focus:ring-1 text-sm transition-all ${
                 errors.password 
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-                  : 'border-dark-border focus:border-primary-500 focus:ring-primary-500'
+                  : 'border-orange-200 focus:border-orange-500 focus:ring-orange-500'
               }`}
             />
             {errors.password && (
-              <p className="text-red-400 text-xs mt-1.5">{errors.password}</p>
+              <p className="text-red-500 text-xs mt-1.5">{errors.password}</p>
             )}
           </div>
 
           {/* Confirm Password Input block */}
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Confirm Password</label>
+            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Confirm Password</label>
             <input
               type="password"
               name="confirmPassword"
               value={confirmPassword}
               onChange={handleChange}
               placeholder="Confirm your password"
-              className={`w-full bg-[#0D1424] border rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-1 text-sm transition-all ${
+              className={`w-full bg-white border rounded-lg px-4 py-2.5 text-slate-850 focus:outline-none focus:ring-1 text-sm transition-all ${
                 errors.confirmPassword 
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-                  : 'border-dark-border focus:border-primary-500 focus:ring-primary-500'
+                  : 'border-orange-200 focus:border-orange-500 focus:ring-orange-500'
               }`}
             />
             {errors.confirmPassword && (
-              <p className="text-red-400 text-xs mt-1.5">{errors.confirmPassword}</p>
+              <p className="text-red-500 text-xs mt-1.5">{errors.confirmPassword}</p>
             )}
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-50 text-sm cursor-pointer shadow-lg mt-6"
+            className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-95 text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-50 text-sm cursor-pointer shadow-md mt-6"
           >
             {loading ? 'Creating Account...' : 'Register'}
           </button>
         </form>
 
-        <p className="text-gray-400 text-sm text-center mt-6">
+        <p className="text-slate-500 text-sm text-center mt-6">
           Already have an account?{' '}
-          <Link to="/login" className="text-primary-400 hover:underline">
+          <Link to="/login" className="text-orange-500 font-semibold hover:underline">
             Sign In
           </Link>
         </p>

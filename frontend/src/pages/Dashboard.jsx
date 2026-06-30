@@ -27,6 +27,7 @@ const Dashboard = () => {
   const [fetchingHistory, setFetchingHistory] = useState(true);
   const [error, setError] = useState('');
   const [toast, setToast] = useState({ message: '', type: '' });
+  const [copySuccess, setCopySuccess] = useState(false);
 
   // Toast alert dispatcher
   const showToast = (message, type = 'error') => {
@@ -109,6 +110,9 @@ const Dashboard = () => {
       return showToast('Please provide either a Video Title or an Image Prompt.', 'error');
     }
 
+    // Double check aspect ratio
+    let targetRatio = aspectRatio === '16:9' ? '16:9' : 'square';
+
     setLoading(true);
     setGeneratedImage(null);
 
@@ -121,7 +125,7 @@ const Dashboard = () => {
       const response = await API.post('/thumbnails', {
         prompt: originalPrompt,
         enhancedPrompt: optimizedPrompt,
-        aspectRatio: aspectRatio === '16:9' ? '16:9' : 'square',
+        aspectRatio: targetRatio,
         quality
       });
 
@@ -166,6 +170,8 @@ const Dashboard = () => {
   const handleCopyPrompt = () => {
     if (generatedImage) {
       navigator.clipboard.writeText(generatedImage.enhancedPrompt);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
       showToast('Optimized prompt copied to clipboard!', 'success');
     }
   };
@@ -189,8 +195,8 @@ const Dashboard = () => {
       {toast.message && (
         <div className={`fixed top-24 right-6 px-5 py-3 rounded-xl shadow-2xl border transition-all duration-300 z-50 text-sm flex items-center gap-2 ${
           toast.type === 'success' 
-            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
-            : 'bg-red-500/10 border-red-500/30 text-red-400'
+            ? 'bg-emerald-100 border-emerald-200 text-emerald-700' 
+            : 'bg-red-100 border-red-200 text-red-700'
         }`}>
           <span>{toast.type === 'success' ? '✓' : '⚠'}</span>
           <span>{toast.message}</span>
@@ -198,25 +204,25 @@ const Dashboard = () => {
       )}
 
       {/* Greeting Banner */}
-      <div className="glass p-6 md:p-8 rounded-2xl glow-primary mb-8 border border-dark-border flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="glass p-6 md:p-8 rounded-2xl glow-primary mb-8 border border-orange-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-orange-50 to-amber-500 bg-clip-text text-transparent">
             Welcome Back, {user?.username || 'Creator'}
           </h1>
-          <p className="text-gray-400 text-xs md:text-sm mt-1">
+          <p className="text-slate-500 text-xs md:text-sm mt-1 font-medium">
             MERN Capstone - AI YouTube Thumbnail Generator workspace.
           </p>
         </div>
-        <div className="flex items-center gap-3 bg-dark-bg/60 border border-dark-border px-4 py-2.5 rounded-xl">
-          <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Total Thumbnails</span>
-          <span className="bg-primary-600 text-white text-sm font-black px-3 py-1 rounded-lg">
+        <div className="flex items-center gap-3 bg-white border border-orange-100 px-4 py-2.5 rounded-xl">
+          <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Total Thumbnails</span>
+          <span className="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-black px-3 py-1 rounded-lg">
             {history.length}
           </span>
         </div>
       </div>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg text-sm mb-6">
+        <div className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm mb-6">
           {error}
         </div>
       )}
@@ -225,52 +231,52 @@ const Dashboard = () => {
       <div className="grid lg:grid-cols-5 gap-8 mb-12">
         
         {/* Left Side: Generator Configuration Form */}
-        <div className="lg:col-span-2 glass p-6 rounded-2xl border border-dark-border">
+        <div className="lg:col-span-2 glass p-6 rounded-2xl border border-orange-100">
           <form onSubmit={handleGenerate} className="space-y-5">
-            <h3 className="text-lg font-bold text-gray-200 border-b border-dark-border pb-2">
+            <h3 className="text-lg font-bold text-slate-800 border-b border-orange-100 pb-2">
               Thumbnail Metadata
             </h3>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Video Title</label>
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Video Title</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. I Built an AI App in 24 Hours!"
-                className="w-full bg-[#0D1424] border border-dark-border rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors text-sm"
+                className="w-full bg-white border border-orange-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Video Description</label>
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Video Description</label>
               <input
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="e.g. Coding capstone tutorial showing MERN fallback routes..."
-                className="w-full bg-[#0D1424] border border-dark-border rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors text-sm"
+                className="w-full bg-white border border-orange-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Core Image Scene (Prompt)</label>
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Core Image Scene (Prompt)</label>
               <textarea
                 rows="3"
                 value={promptText}
                 onChange={(e) => setPromptText(e.target.value)}
                 placeholder="Describe what visual elements should be in the thumbnail..."
-                className="w-full bg-[#0D1424] border border-dark-border rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors text-sm resize-none"
+                className="w-full bg-white border border-orange-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors text-sm resize-none"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Category</label>
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Category</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full bg-[#0D1424] border border-dark-border rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-primary-500 text-xs"
+                  className="w-full bg-white border border-orange-200 rounded-lg px-3 py-2.5 text-slate-800 focus:outline-none focus:border-orange-500 text-xs"
                 >
                   {categories.map((c) => (
                     <option key={c.value} value={c.value}>
@@ -281,11 +287,11 @@ const Dashboard = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Quality</label>
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Quality</label>
                 <select
                   value={quality}
                   onChange={(e) => setQuality(e.target.value)}
-                  className="w-full bg-[#0D1424] border border-dark-border rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-primary-500 text-xs"
+                  className="w-full bg-white border border-orange-200 rounded-lg px-3 py-2.5 text-slate-800 focus:outline-none focus:border-orange-500 text-xs"
                 >
                   <option value="hd">HD (Standard)</option>
                   <option value="ultra-hd">Ultra HD (Detailed)</option>
@@ -294,25 +300,25 @@ const Dashboard = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Aspect Ratio</label>
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Aspect Ratio</label>
               <div className="flex gap-4">
-                <label className="flex items-center gap-2 text-sm text-gray-300 cursor-pointer">
+                <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
                   <input
                     type="radio"
                     name="ratio"
                     checked={aspectRatio === '16:9'}
                     onChange={() => setAspectRatio('16:9')}
-                    className="accent-primary-500"
+                    className="accent-orange-500"
                   />
                   16:9 (YouTube)
                 </label>
-                <label className="flex items-center gap-2 text-sm text-gray-300 cursor-pointer">
+                <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
                   <input
                     type="radio"
                     name="ratio"
                     checked={aspectRatio === 'square'}
                     onChange={() => setAspectRatio('square')}
-                    className="accent-primary-500"
+                    className="accent-orange-500"
                   />
                   Square (1:1)
                 </label>
@@ -322,7 +328,7 @@ const Dashboard = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm cursor-pointer shadow-lg mt-2"
+              className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-95 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm cursor-pointer shadow-md mt-2"
             >
               {loading ? (
                 <>
@@ -345,22 +351,22 @@ const Dashboard = () => {
         </div>
 
         {/* Right Side: Live Image Output Preview Area */}
-        <div className="lg:col-span-3 glass p-6 rounded-2xl border border-dark-border flex flex-col justify-between">
-          <h3 className="text-lg font-bold text-gray-200 border-b border-dark-border pb-2 mb-4">
+        <div className="lg:col-span-3 glass p-6 rounded-2xl border border-orange-100 flex flex-col justify-between">
+          <h3 className="text-lg font-bold text-slate-800 border-b border-orange-100 pb-2 mb-4">
             Live Preview Workspace
           </h3>
 
-          <div className="w-full flex items-center justify-center bg-[#0B0F19]/60 border border-dark-border rounded-xl p-4 min-h-[300px]">
+          <div className="w-full flex items-center justify-center bg-[#f8fafc] border border-orange-100 rounded-xl p-4 min-h-[300px]">
             {loading ? (
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                <p className="text-gray-400 text-sm">Generating graphics on server...</p>
-                <p className="text-gray-500 text-xs mt-1">Downloading buffer to local folder...</p>
+                <div className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p className="text-slate-500 text-sm font-semibold">Generating graphics on server...</p>
+                <p className="text-slate-400 text-xs mt-1">Downloading buffer to local folder...</p>
               </div>
             ) : generatedImage ? (
               <div className="w-full flex flex-col items-center">
                 {/* Dynamically styled display block representing the aspect ratio of output */}
-                <div className={`w-full overflow-hidden rounded-lg bg-black/40 border border-dark-border relative group shadow-2xl ${aspectRatio === '16:9' ? 'aspect-video' : 'aspect-square max-w-sm'}`}>
+                <div className={`w-full overflow-hidden rounded-lg bg-[#f8fafc] border border-orange-100 relative group shadow-lg ${aspectRatio === '16:9' ? 'aspect-video' : 'aspect-square max-w-sm'}`}>
                   <img
                     src={generatedImage.imageUrl}
                     alt={generatedImage.prompt}
@@ -369,7 +375,7 @@ const Dashboard = () => {
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                     <button
                       onClick={() => handleDownload(generatedImage.imageUrl, generatedImage.prompt)}
-                      className="bg-primary-600 hover:bg-primary-700 text-white font-bold p-3.5 rounded-full transition-colors cursor-pointer"
+                      className="bg-orange-500 hover:bg-orange-600 text-white font-bold p-3.5 rounded-full transition-colors cursor-pointer"
                       title="Download Image"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -394,7 +400,7 @@ const Dashboard = () => {
                 <div className="flex flex-wrap gap-3 mt-6 w-full justify-center">
                   <button
                     onClick={() => handleDownload(generatedImage.imageUrl, generatedImage.prompt)}
-                    className="bg-primary-600 hover:bg-primary-700 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
+                    className="bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-95 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
@@ -404,11 +410,11 @@ const Dashboard = () => {
 
                   <button
                     onClick={handleCopyPrompt}
-                    className="bg-gray-700 hover:bg-gray-600 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
+                    className="bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
                   >
                     {copySuccess ? (
                       <>
-                        <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-green-455" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                         </svg>
                         Copied!
@@ -425,7 +431,7 @@ const Dashboard = () => {
 
                   <button
                     onClick={handleGenerateAgain}
-                    className="bg-dark-card border border-dark-border text-gray-300 hover:bg-dark-border text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
+                    className="bg-white border border-orange-200 text-slate-700 hover:bg-orange-50/50 text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89H18.5"></path>
@@ -435,20 +441,20 @@ const Dashboard = () => {
                 </div>
               </div>
             ) : (
-              <div className="text-center p-8 text-gray-500">
-                <svg className="w-12 h-12 mx-auto text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="text-center p-8 text-slate-400">
+                <svg className="w-12 h-12 mx-auto text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
-                <p className="text-sm">Submit your video details on the left.</p>
-                <p className="text-xs mt-1 text-gray-600">The optimized output will render dynamically.</p>
+                <p className="text-sm font-semibold">Submit your video details on the left.</p>
+                <p className="text-xs mt-1 text-slate-400">The optimized output will render dynamically.</p>
               </div>
             )}
           </div>
 
           {generatedImage && (
-            <div className="mt-4 bg-[#0B0F19]/40 border border-dark-border p-3 rounded-lg">
-              <span className="text-[10px] text-primary-400 font-mono block uppercase">Optimized Prompt (Copied):</span>
-              <p className="text-xs text-gray-300 mt-1 italic leading-relaxed">"{generatedImage.enhancedPrompt}"</p>
+            <div className="mt-4 bg-orange-50/20 border border-orange-100 p-3 rounded-lg">
+              <span className="text-[10px] text-orange-500 font-mono block uppercase font-bold">Optimized Prompt (Copied):</span>
+              <p className="text-xs text-slate-650 mt-1 italic leading-relaxed">"{generatedImage.enhancedPrompt}"</p>
             </div>
           )}
         </div>
@@ -457,20 +463,20 @@ const Dashboard = () => {
 
       {/* Bottom Section: Recent History Logs */}
       <div>
-        <h2 className="text-xl font-bold text-gray-200 border-b border-dark-border pb-3 mb-6">
+        <h2 className="text-xl font-bold text-slate-800 border-b border-orange-100 pb-3 mb-6">
           Recent Thumbnail History
         </h2>
 
         {fetchingHistory ? (
-          <div className="text-center py-12 text-gray-400 text-sm">
-            <div className="w-8 h-8 border-3 border-primary-500 border-t-transparent rounded-full animate-spin mb-3 mx-auto"></div>
+          <div className="text-center py-12 text-slate-500 text-sm">
+            <div className="w-8 h-8 border-3 border-orange-500 border-t-transparent rounded-full animate-spin mb-3 mx-auto"></div>
             Loading history...
           </div>
         ) : history.length > 0 ? (
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             {history.map((item) => (
-              <div key={item._id} className="glass rounded-xl overflow-hidden border border-dark-border flex flex-col group hover:border-primary-500/30 transition-colors duration-300">
-                <div className="aspect-video w-full bg-[#0D1424] relative overflow-hidden">
+              <div key={item._id} className="glass rounded-xl overflow-hidden border border-orange-100 flex flex-col group hover:border-orange-300 transition-colors duration-300">
+                <div className="aspect-video w-full bg-[#f8fafc] relative overflow-hidden">
                   <img
                     src={item.imageUrl}
                     alt={item.prompt}
@@ -480,7 +486,7 @@ const Dashboard = () => {
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
                     <button
                       onClick={() => handleDownload(item.imageUrl, item.prompt)}
-                      className="bg-primary-600 hover:bg-primary-700 text-white font-bold p-2.5 rounded-full transition-colors cursor-pointer"
+                      className="bg-orange-500 hover:bg-orange-600 text-white font-bold p-2.5 rounded-full transition-colors cursor-pointer"
                       title="Download"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -500,11 +506,11 @@ const Dashboard = () => {
                     </a>
                   </div>
                 </div>
-                <div className="p-4 border-t border-dark-border flex-grow flex flex-col justify-between">
-                  <p className="text-xs text-gray-300 line-clamp-2 italic leading-relaxed">
+                <div className="p-4 border-t border-orange-100 flex-grow flex flex-col justify-between">
+                  <p className="text-xs text-slate-600 line-clamp-2 italic leading-relaxed">
                     "{item.prompt}"
                   </p>
-                  <span className="text-[10px] text-gray-500 font-mono mt-3 block">
+                  <span className="text-[10px] text-slate-400 font-mono mt-3 block">
                     {new Date(item.createdAt).toLocaleDateString(undefined, {
                       month: 'short',
                       day: 'numeric',
@@ -517,8 +523,8 @@ const Dashboard = () => {
             ))}
           </div>
         ) : (
-          <div className="bg-[#0B0F19]/40 border border-dashed border-dark-border text-center p-12 rounded-xl text-gray-500">
-            <svg className="w-12 h-12 mx-auto text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="bg-orange-50/5 border border-dashed border-orange-100 text-center p-12 rounded-xl text-slate-400">
+            <svg className="w-12 h-12 mx-auto text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
             No generated thumbnails yet. Describe your first scene above to create output!

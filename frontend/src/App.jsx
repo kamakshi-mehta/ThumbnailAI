@@ -13,7 +13,7 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-dark-bg text-gray-100 flex flex-col">
+      <div className="min-h-screen text-slate-800 flex flex-col">
         {/* Navigation Bar */}
         <Navbar />
         

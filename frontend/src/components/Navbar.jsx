@@ -26,11 +26,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="glass border-b border-dark-border sticky top-0 z-50 px-6 py-4">
+    <nav className="glass border-b border-orange-500/10 sticky top-0 z-50 px-6 py-4">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         
         {/* Brand Logo Link */}
-        <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent tracking-wide hover:opacity-90 transition-opacity">
+        <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent tracking-wide hover:opacity-90 transition-opacity">
           ThumbnailAI
         </Link>
         
@@ -38,16 +38,16 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-6">
           {token ? (
             <>
-              <span className="text-gray-400 text-sm">
-                Welcome, <strong className="text-gray-200">{user?.username}</strong>
+              <span className="text-slate-500 text-sm">
+                Welcome, <strong className="text-slate-800">{user?.username}</strong>
               </span>
-              <Link to="/dashboard" className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
+              <Link to="/dashboard" className="text-slate-600 hover:text-orange-600 transition-colors font-semibold text-sm">
                 Dashboard
               </Link>
-              <Link to="/history" className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
+              <Link to="/history" className="text-slate-600 hover:text-orange-600 transition-colors font-semibold text-sm">
                 History
               </Link>
-              <Link to="/profile" className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
+              <Link to="/profile" className="text-slate-600 hover:text-orange-600 transition-colors font-semibold text-sm">
                 Profile
               </Link>
               <button
@@ -59,10 +59,10 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/login" className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
+              <Link to="/login" className="text-slate-600 hover:text-orange-600 transition-colors font-semibold text-sm">
                 Login
               </Link>
-              <Link to="/register" className="bg-primary-600 hover:bg-primary-700 text-white font-medium px-4 py-2 rounded-lg transition-all duration-300 text-sm glow-primary cursor-pointer">
+              <Link to="/register" className="bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-95 text-white font-semibold px-4 py-2 rounded-lg transition-all duration-300 text-sm glow-primary cursor-pointer">
                 Register
               </Link>
             </>
@@ -72,7 +72,7 @@ const Navbar = () => {
         {/* Hamburger Menu Toggle Button (Visible on Mobile Only) */}
         <button 
           onClick={() => setIsOpen(!isOpen)} 
-          className="md:hidden text-gray-400 hover:text-white focus:outline-none cursor-pointer"
+          className="md:hidden text-slate-600 hover:text-slate-800 focus:outline-none cursor-pointer"
           aria-label="Toggle Menu"
         >
           {isOpen ? (
@@ -89,30 +89,30 @@ const Navbar = () => {
 
       {/* Mobile Links Dropdown list (Renders dynamically) */}
       {isOpen && (
-        <div className="md:hidden mt-4 pt-4 border-t border-dark-border/60 flex flex-col gap-4">
+        <div className="md:hidden mt-4 pt-4 border-t border-orange-500/10 flex flex-col gap-4">
           {token ? (
             <>
-              <span className="text-gray-400 text-sm pb-1 border-b border-dark-border/30">
-                Welcome, <strong className="text-gray-200">{user?.username}</strong>
+              <span className="text-slate-500 text-sm pb-1 border-b border-orange-500/5">
+                Welcome, <strong className="text-slate-800">{user?.username}</strong>
               </span>
               <Link 
                 to="/dashboard" 
                 onClick={() => setIsOpen(false)}
-                className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
+                className="text-slate-600 hover:text-orange-600 transition-colors font-semibold text-sm"
               >
                 Dashboard
               </Link>
               <Link 
                 to="/history" 
                 onClick={() => setIsOpen(false)}
-                className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
+                className="text-slate-600 hover:text-orange-600 transition-colors font-semibold text-sm"
               >
                 History
               </Link>
               <Link 
                 to="/profile" 
                 onClick={() => setIsOpen(false)}
-                className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
+                className="text-slate-600 hover:text-orange-600 transition-colors font-semibold text-sm"
               >
                 Profile
               </Link>
@@ -128,14 +128,14 @@ const Navbar = () => {
               <Link 
                 to="/login" 
                 onClick={() => setIsOpen(false)}
-                className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
+                className="text-slate-600 hover:text-orange-600 transition-colors font-semibold text-sm"
               >
                 Login
               </Link>
               <Link 
                 to="/register" 
                 onClick={() => setIsOpen(false)}
-                className="bg-primary-600 hover:bg-primary-700 text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-300 text-sm glow-primary text-center cursor-pointer w-full"
+                className="bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-95 text-white font-semibold px-4 py-2.5 rounded-lg transition-all duration-300 text-sm glow-primary text-center cursor-pointer w-full"
               >
                 Register
               </Link>
