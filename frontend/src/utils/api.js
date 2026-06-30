@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // Create an Axios instance
 const API = axios.create({
-  // Our backend APIs start with /api, so relative base URL handles both dev proxy and prod serving
-  baseURL: '/api',
+  // Use the live Render backend API URL if configured, otherwise fallback to local /api proxy
+  baseURL: import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api',
   headers: {
     'Content-Type': 'application/json',
   },
