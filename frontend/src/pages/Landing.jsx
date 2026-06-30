@@ -158,7 +158,7 @@ const Landing = () => {
       {/* Footer */}
       <footer className="mt-auto py-8 border-t border-orange-100 bg-orange-50/5 px-6 text-center text-slate-500 text-xs">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p>© {new Date().getFullYear()} ThumbnailAI. Final Year CSE Project.</p>
+          <p>© {new Date().getFullYear()} ThumbnailAI. Project.</p>
           <p className="flex gap-4">
             <span className="text-slate-600">React.js</span>
             <span>•</span>
